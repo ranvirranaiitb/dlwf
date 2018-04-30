@@ -1,0 +1,73 @@
+ID2804_223529 28.04 22:35:47>	Loaded data 239996 instances for 97 classes: 2474 traces per class, 3000 Tor cells per trace
+ID2804_223529 28.04 22:35:47>	Experiment 1: seed 18
+ID2904_163747 29.04 16:38:01>	Loaded data 249996 instances for 101 classes: 2475 traces per class, 3000 Tor cells per trace
+ID2904_163747 29.04 16:38:01>	Experiment 1: seed 18
+ID2904_164807 29.04 16:48:19>	Loaded data 239983 instances for 96 classes: 2499 traces per class, 3000 Tor cells per trace
+ID2904_164807 29.04 16:48:19>	Experiment 1: seed 18
+ID2904_165510 29.04 16:55:22>	Loaded data 239983 instances for 96 classes: 2499 traces per class, 3000 Tor cells per trace
+ID2904_165510 29.04 16:55:22>	Experiment 1: seed 18
+ID2904_170518 29.04 17:05:29>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID2904_170518 29.04 17:05:29>	Experiment 1: seed 18
+ID2904_170518 29.04 17:56:33>	Training took 3063.20 sec
+ID2904_170518 29.04 18:15:01>	Test loss(entropy):	0.3374
+ID2904_170518 29.04 18:15:01>	Test accuracy:	0.91
+ID2904_170518 29.04 18:15:01>	Test took 1108.17 sec
+ID2904_181830 29.04 18:18:43>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID2904_181830 29.04 18:18:43>	Experiment 1: seed 18
+ID2904_181830 29.04 19:06:35>	Training took 2871.95 sec
+ID2904_181830 29.04 19:23:22>	Test loss(entropy):	0.3854
+ID2904_181830 29.04 19:23:22>	Test accuracy:	0.8962
+ID2904_181830 29.04 19:23:22>	Test took 1007.19 sec
+ID2904_225214 29.04 22:52:26>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID2904_225214 29.04 22:52:26>	Experiment 1: seed 18
+ID2904_225214 29.04 23:40:03>	Training took 2857.38 sec
+ID2904_225214 29.04 23:57:09>	Test loss(entropy):	0.3217
+ID2904_225214 29.04 23:57:09>	Test accuracy:	0.914
+ID2904_225214 29.04 23:57:09>	Test took 1025.88 sec
+ID3004_001829 30.04 00:18:41>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_001829 30.04 00:18:41>	Experiment 1: seed 18
+ID3004_002018 30.04 00:20:30>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_002018 30.04 00:20:30>	Experiment 1: seed 18
+ID3004_002204 30.04 00:22:16>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_002204 30.04 00:22:16>	Experiment 1: seed 18
+ID3004_002204 30.04 00:32:17>	Training took 600.59 sec
+ID3004_003914 30.04 00:39:26>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_003914 30.04 00:39:26>	Experiment 1: seed 18
+ID3004_003914 30.04 00:49:01>	Training took 574.88 sec
+ID3004_010258 30.04 01:03:10>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_010258 30.04 01:03:10>	Experiment 1: seed 18
+ID3004_010258 30.04 01:12:45>	Training took 574.91 sec
+ID3004_010258 30.04 01:29:39>	Test loss(entropy):	1.2411
+ID3004_010258 30.04 01:29:39>	Test accuracy:	0.6552
+ID3004_010258 30.04 01:29:39>	Test took 1013.59 sec
+ID3004_013623 30.04 01:36:35>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_013623 30.04 01:36:35>	Experiment 1: seed 18
+ID3004_013623 30.04 01:46:35>	Training took 600.09 sec
+ID3004_014831 30.04 01:48:42>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_014831 30.04 01:48:42>	Experiment 1: seed 18
+ID3004_014831 30.04 01:55:17>	Training took 394.68 sec
+ID3004_021456 30.04 02:15:07>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_021456 30.04 02:15:07>	Experiment 1: seed 18
+ID3004_021456 30.04 02:21:40>	Training took 392.82 sec
+ID3004_024547 30.04 02:45:58>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_024547 30.04 02:45:58>	Experiment 1: seed 18
+ID3004_024821 30.04 02:48:33>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_024821 30.04 02:48:33>	Experiment 1: seed 18
+ID3004_024821 30.04 02:55:03>	Training took 389.71 sec
+ID3004_030003 30.04 03:00:15>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_030003 30.04 03:00:15>	Experiment 1: seed 18
+ID3004_030003 30.04 03:03:34>	Training took 198.74 sec
+ID3004_031249 30.04 03:13:01>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_031249 30.04 03:13:01>	Experiment 1: seed 18
+ID3004_031249 30.04 03:16:09>	Training took 187.45 sec
+ID3004_031249 30.04 03:33:31>	Test loss(entropy):	2.1946
+ID3004_031249 30.04 03:33:31>	Test accuracy:	0.3723
+ID3004_031249 30.04 03:33:31>	Test took 976.19 sec
+ID3004_044726 30.04 04:47:38>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_044726 30.04 04:47:38>	Experiment 1: seed 18
+ID3004_044726 30.04 04:49:50>	Training took 132.05 sec
+ID3004_050349 30.04 05:04:01>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_050349 30.04 05:04:01>	Experiment 1: seed 18
+ID3004_050349 30.04 05:06:13>	Training took 131.91 sec
+ID3004_053214 30.04 05:32:26>	Loaded data 239983 instances for 100 classes: 2399 traces per class, 3000 Tor cells per trace
+ID3004_053214 30.04 05:32:26>	Experiment 1: seed 18

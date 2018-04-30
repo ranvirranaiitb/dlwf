@@ -1,0 +1,4230 @@
+
+ID2804_223529 28.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_163747 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/tor_100w_2500tr.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_164807 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_165436 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_165510 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_165940 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_170518 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_181830 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_202103 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/models/model
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID2904_225214 29.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_001623 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_001814 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_001829 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_002018 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 15
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_002155 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 3
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_002204 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 3
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_003914 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 3
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_010258 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 3
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_013623 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 3
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_014831 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 2
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_021456 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 2
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_024547 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 2
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_024821 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 2
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_030003 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_030722 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_031224 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_031249 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_044726 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_050349 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0
+
+ID3004_053214 30.04
+dnn = cnn
+traces = 1500
+test_data = /home/calvin/projects/web-fingerprinting/data/test.npz
+model_path = /home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn
+openw = False
+parts = False
+parts_name = /home/vera/deeplearn/dl-wf/src/keras-dlwf/cw_datasets/parts/tor_part?_900w_500tr_runs0_29.npz
+seed = 18
+cv = 1
+minlen = 0
+imgdir = ./images_cnn
+resdir = ./results_cnn
+log = cnn_log.out
+datapath = /home/calvin/projects/web-fingerprinting/data/train.npz
+[lstm]
+nb_epochs = 50
+maxlen = 150
+features = 2,
+batch_size = 256
+val_split = 0.15
+test_split = 0.15
+optimizer = rmsprop
+nb_layers = 2
+[[1]]
+units = 128
+dropout = 0.22244615886559121
+activation = tanh
+rec_activation = hard_sigmoid
+[[2]]
+units = 128
+dropout = 0.20857652372682717
+activation = tanh
+rec_activation = hard_sigmoid
+[[rmsprop]]
+lr = 0.0010053829131721616
+decay = 0.0
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[adam]]
+lr = 0.001
+decay = 0.0
+[sdae]
+nb_epochs = 30
+maxlen = 5000
+features = 2,
+batch_size = 32
+val_split = 0.05
+test_split = 0.05
+optimizer = sgd
+nb_layers = 3
+[[sgd]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+nesterov = True
+[[1]]
+in_dim = 5000
+out_dim = 1000
+epochs = 50
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[2]]
+in_dim = 700
+out_dim = 500
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[[3]]
+in_dim = 500
+out_dim = 300
+epochs = 10
+batch_size = 128
+dropout = 0.2
+optimizer = sgd
+enc_activation = tanh
+dec_activation = linear
+[[[sgd]]]
+lr = 0.001
+momentum = 0.9
+decay = 0.0
+[cnn]
+nb_epochs = 1
+maxlen = 3000
+features = 2,
+batch_size = 256
+val_split = 0.05
+test_split = 0.05
+optimizer = rmsprop
+nb_layers = 7
+[[1]]
+name = dropout
+rate = 0.25
+[[2]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[3]]
+name = maxpooling
+pool_size = 4
+[[4]]
+name = conv
+filters = 32
+kernel_size = 5
+activation = relu
+stride = 1
+[[5]]
+name = maxpooling
+pool_size = 4
+[[6]]
+name = lstm
+units = 128
+[[7]]
+last = True
+units = 100
+name = dense
+activation = softmax
+regularization = 0.0
+[[rmsprop]]
+lr = 0.0008
+decay = 0.0

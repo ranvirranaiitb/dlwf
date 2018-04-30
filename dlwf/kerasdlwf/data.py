@@ -110,6 +110,12 @@ def load_data(path, maxlen=None, minlen=0, traces=0, dnn_type=None, openw=False)
 
     print("Data {}, labels {}".format(data.shape, labels.shape))
 
+    # all_labels = {}
+    # for i in range(labels.shape[0]):
+    #     all_labels[labels[i][0]] = True
+    # print(len(all_labels.keys()))
+    # print(all_labels.keys())
+
     return data, labels
 
 

@@ -15,7 +15,18 @@ from data import load_data, split_dataset, DataGenerator
 import tor_lstm
 import tor_sdae
 import tor_cnn
+import os
+import random
+from keras import backend as K
+import tensorflow as tf
 
+os.environ['PYTHONHASHSEED'] = '0'
+np.random.seed(42)
+random.seed(12345)
+session_conf = tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
+tf.set_random_seed(1234)
+sess = tf.Session(graph=tf.get_default_graph(), config=session_conf)
+K.set_session(sess)
 
 torconf = "tor.conf"
 config = ConfigObj(torconf)
@@ -224,6 +235,20 @@ def run(id, cv, data_params, learn_params, model=None):
              comment="{}_{}".format(id, cv),
              imgdir=config['imgdir'])
     '''
+
+    print('~~~~~~~~~~~')
+    print(model.get_weights())
+    data0, labels0 = load_data('/home/calvin/projects/web-fingerprinting/data/train.npz', minlen=0, maxlen=3000, traces=1500, dnn_type='cnn')
+    result = model.evaluate(data0[:1000, :], labels0[:1000], batch_size=1)
+    print(result)
+    model.save_weights('models/test3.h5')
+    # model.save('models/test0.h5')
+    # model.model.save('models/test1.h5')
+    model_json = model.to_json()
+    with open("models/test3.json", "w") as json_file:
+        json_file.write(model_json)
+    print('~~~~~~~~~~~')
+
     return tr_loss, tr_acc, model
 
 
