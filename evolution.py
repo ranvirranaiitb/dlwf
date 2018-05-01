@@ -5,15 +5,18 @@ from keras.models import model_from_json
 from keras.optimizers import RMSprop
 from dlwf.kerasdlwf import tor_cnn
 from configobj import ConfigObj
+import time
 
 INPUT_SIZE = 10 + 1 # add 1 for bias
 HIDDEN_SIZE = 100
 OUTPUT_SIZE = 3
 N_GENS = 10000
 SEQ_LEN = 3000
-POP_SIZE = 20
+POP_SIZE = 100
 HALF_MUTATE_RANGE = 0.01
 DISCRIMINATOR_PATH = '/home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn'
+OVERHEAD_FITNESS_MULTIPLIER = 2.
+SAMPLES_PER_GEN = 500
 
 # class MLP:
 #     def __init__(self):
@@ -26,7 +29,7 @@ DISCRIMINATOR_PATH = '/home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/mo
 
 def create_model():
     model = k.models.Sequential()
-    model.add(k.layers.LSTM(10, batch_input_shape=(N_SAMPLES, SEQ_LEN, 1), return_sequences=True))
+    model.add(k.layers.LSTM(10, batch_input_shape=(SAMPLES_PER_GEN, SEQ_LEN, 1), return_sequences=True))
     model.add(k.layers.Dense(3))
     return model
 
@@ -43,10 +46,10 @@ def mutate(model):
 
 def insert_data(generator_output, original_data):
     # return original_data, 0
-    new_data = np.empty((N_SAMPLES, SEQ_LEN, 1))
+    new_data = np.empty((SAMPLES_PER_GEN, SEQ_LEN, 1))
     generator_output = np.argmax(generator_output, axis=2)
     insertions = 0
-    for i in range(N_SAMPLES):
+    for i in range(SAMPLES_PER_GEN):
         x = 0
         for j in range(SEQ_LEN):
             if x == SEQ_LEN:
@@ -66,10 +69,6 @@ def insert_data(generator_output, original_data):
                 x += 1
                 insertions += 1
     return new_data, insertions
-
-
-def insert_data_fast(generator_output, original_data):
-    pass
 
 
 def train(datapath):
@@ -175,12 +174,12 @@ def train(datapath):
     tr_loss = round(history.history['loss'][-1], 4)
     tr_acc = round(history.history['acc'][-1], 4)
 
-    print('~~~~~~~~~~~')
-    # print(model.get_weights())
-    data0, labels0 = load_data('/home/calvin/projects/web-fingerprinting/data/test.npz', minlen=0, maxlen=3000, traces=1500, dnn_type='cnn')
-    result = model.evaluate(data0[:1000, :], labels0[:1000], batch_size=1)
-    print(result)
-    print('~~~~~~~~~~~')
+    # print('~~~~~~~~~~~')
+    # # print(model.get_weights())
+    # data0, labels0 = load_data('/home/calvin/projects/web-fingerprinting/data/test.npz', minlen=0, maxlen=3000, traces=1500, dnn_type='cnn')
+    # result = model.evaluate(data0, labels0, batch_size=256)
+    # print(result)
+    # print('~~~~~~~~~~~')
     return model
 
 
@@ -197,33 +196,47 @@ def run(discriminator):
     # discriminator.compile(loss="categorical_crossentropy", optimizer='sgd', metrics=['accuracy'])
 
     # load data
-    data, labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
-    N_SAMPLES = data.shape[0]
+    all_data, all_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    N_SAMPLES = all_data.shape[0]
+    base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
+    print('BASE ACC: {}'.format(base_accuracy))
 
     # create initial population
     population = [create_model()]
 
     # generational loop
     for gen in range(N_GENS):
+        start = time.time()
+
+        # select subset of data
+        idxs = np.random.permutation(N_SAMPLES)
+        idxs = idxs[:SAMPLES_PER_GEN]
+        data = all_data[idxs, :]
+        labels = all_labels[idxs]
+
         # determine fitness of population
         fitness = []
         for model in population:
-            results = model.predict(data, batch_size=N_SAMPLES)
+            results = model.predict(data, batch_size=SAMPLES_PER_GEN)
             new_data, insertions = insert_data(results, data)
-            print(insertions)
-            acc = discriminator.evaluate(new_data, labels, batch_size=N_SAMPLES)[1]
-            overhead_fitness = 1. - (float(insertions) / float(N_SAMPLES * SEQ_LEN))
+            acc = discriminator.evaluate(new_data, labels, batch_size=SAMPLES_PER_GEN)[1]
+            overhead_fitness = 1. - (float(insertions) / float(SAMPLES_PER_GEN * SEQ_LEN))
             acc_fitness = 1. - acc
-            print('overhead fitness: {}, acc fitness: {}'.format(overhead_fitness, acc_fitness))
-            f.write('overhead fitness: {}, acc fitness: {}\n'.format(overhead_fitness, acc_fitness))
-            fitness.append(overhead_fitness + acc_fitness)
+            total_fitness = OVERHEAD_FITNESS_MULTIPLIER * overhead_fitness + acc_fitness
+            print('total fitness: {:.4f}, overhead fitness: {:.4f}, acc fitness: {:.4f}'.format(total_fitness, overhead_fitness, acc_fitness))
+            f.write('total fitness: {:.4f}, overhead fitness: {:.4f}, acc fitness: {:.4f}\n'.format(total_fitness, overhead_fitness, acc_fitness))
+            fitness.append(total_fitness)
         best = fitness.index(max(fitness))
-        print('GEN {}: best fitness = {}'.format(gen, fitness[best]))
-        f.write('GEN {}: best fitness = {}\n'.format(gen, fitness[best]))
+
+        # mutate
         new_pop = []
         for _ in range(POP_SIZE):
             new_pop.append(mutate(population[best]))
         population = new_pop
+
+        end = time.time()
+        print('GEN {}: best fitness = {:.4f} (took {:.2f} sec)'.format(gen, fitness[best], end-start))
+        f.write('GEN {}: best fitness = {:.4f} (took {:.2f} sec)\n'.format(gen, fitness[best], end-start))
 
     f.close()
 
