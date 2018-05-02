@@ -174,9 +174,6 @@ def train(datapath):
                                       validation_data=data_params['val_gen'],
                                       validation_steps=learn_params['val_steps'],
                                       epochs=learn_params['epochs'])
-
-        tr_loss = round(history.history['loss'][-1], 4)
-        tr_acc = round(history.history['acc'][-1], 4)
         model.save_weights('best_discriminator_weights.h5')
 
     return model
