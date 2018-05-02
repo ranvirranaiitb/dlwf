@@ -17,6 +17,7 @@ HALF_MUTATE_RANGE = 0.01
 DISCRIMINATOR_PATH = '/home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn'
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
+LOAD_DISCRIMINATOR = False
 
 # class MLP:
 #     def __init__(self):
@@ -46,17 +47,17 @@ def mutate(model):
 
 def insert_data(generator_output, original_data):
     # return original_data, 0
-    new_data = np.empty((SAMPLES_PER_GEN, SEQ_LEN, 1))
+    new_data = np.empty(original_data.shape)
     generator_output = np.argmax(generator_output, axis=2)
     insertions = 0
-    for i in range(SAMPLES_PER_GEN):
+    for i in range(original_data.shape[0]):
         x = 0
-        for j in range(SEQ_LEN):
-            if x == SEQ_LEN:
+        for j in range(original_data.shape[1]):
+            if x == original_data.shape[1]:
                 break
             new_data[i][x] = original_data[i][j]
             x += 1
-            if x == SEQ_LEN:
+            if x == original_data.shape[1]:
                 break
             if generator_output[i][j] == 1:
                 # insert 1
@@ -165,21 +166,19 @@ def train(datapath):
     print(model.summary())
 
     # Train model on dataset
-    history = model.fit_generator(generator=data_params['train_gen'],
-                                  steps_per_epoch=learn_params['train_steps'],
-                                  validation_data=data_params['val_gen'],
-                                  validation_steps=learn_params['val_steps'],
-                                  epochs=learn_params['epochs'])
+    if LOAD_DISCRIMINATOR:
+        model.load_weights('best_discriminator_weights.h5')
+    else:
+        history = model.fit_generator(generator=data_params['train_gen'],
+                                      steps_per_epoch=learn_params['train_steps'],
+                                      validation_data=data_params['val_gen'],
+                                      validation_steps=learn_params['val_steps'],
+                                      epochs=learn_params['epochs'])
 
-    tr_loss = round(history.history['loss'][-1], 4)
-    tr_acc = round(history.history['acc'][-1], 4)
+        tr_loss = round(history.history['loss'][-1], 4)
+        tr_acc = round(history.history['acc'][-1], 4)
+        model.save_weights('best_discriminator_weights.h5')
 
-    # print('~~~~~~~~~~~')
-    # # print(model.get_weights())
-    # data0, labels0 = load_data('/home/calvin/projects/web-fingerprinting/data/test.npz', minlen=0, maxlen=3000, traces=1500, dnn_type='cnn')
-    # result = model.evaluate(data0, labels0, batch_size=256)
-    # print(result)
-    # print('~~~~~~~~~~~')
     return model
 
 
@@ -196,10 +195,16 @@ def run(discriminator):
     # discriminator.compile(loss="categorical_crossentropy", optimizer='sgd', metrics=['accuracy'])
 
     # load data
-    all_data, all_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    all_data, all_labels = load_data('data/val.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
     N_SAMPLES = all_data.shape[0]
     base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
-    print('BASE ACC: {}'.format(base_accuracy))
+    print('BASE VAL ACC: {}'.format(base_accuracy))
+
+    test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    N_TEST_SAMPLES = test_data.shape[0]
+    base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
+    print('BASE TEST ACC: {}'.format(base_accuracy))
+
 
     # create initial population
     population = [create_model()]
@@ -223,10 +228,23 @@ def run(discriminator):
             overhead_fitness = 1. - (float(insertions) / float(SAMPLES_PER_GEN * SEQ_LEN))
             acc_fitness = 1. - acc
             total_fitness = OVERHEAD_FITNESS_MULTIPLIER * overhead_fitness + acc_fitness
-            print('total fitness: {:.4f}, overhead fitness: {:.4f}, acc fitness: {:.4f}'.format(total_fitness, overhead_fitness, acc_fitness))
-            f.write('total fitness: {:.4f}, overhead fitness: {:.4f}, acc fitness: {:.4f}\n'.format(total_fitness, overhead_fitness, acc_fitness))
+            output = 'total fitness: {:.4f}, overhead fitness: {:.4f}, acc fitness: {:.4f}'.format(total_fitness, overhead_fitness, acc_fitness)
+            print(output)
+            f.write(output + '\n')
             fitness.append(total_fitness)
         best = fitness.index(max(fitness))
+
+        # eval best on test data
+        results = population[best].predict(test_data, batch_size=SAMPLES_PER_GEN)
+        new_data, insertions = insert_data(results, test_data)
+        acc = discriminator.evaluate(new_data, test_labels, batch_size=SAMPLES_PER_GEN)[1]
+        overhead = float(insertions) / float(N_TEST_SAMPLES * SEQ_LEN)
+        output = 'BEST OF GEN {}: test overhead = {:.4f}, test acc = {:.4f}'.format(gen, overhead, acc)
+        print(output)
+        f.write(output + '\n')
+
+        # save best
+        population[best].save_weights('best_generator_weights.h5')
 
         # mutate
         new_pop = []
@@ -235,8 +253,9 @@ def run(discriminator):
         population = new_pop
 
         end = time.time()
-        print('GEN {}: best fitness = {:.4f} (took {:.2f} sec)'.format(gen, fitness[best], end-start))
-        f.write('GEN {}: best fitness = {:.4f} (took {:.2f} sec)\n'.format(gen, fitness[best], end-start))
+        output = 'GEN {}: best fitness = {:.4f} (took {:.2f} sec)'.format(gen, fitness[best], end-start)
+        print(output)
+        f.write(output + '\n')
 
     f.close()
 
