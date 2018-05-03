@@ -10,7 +10,7 @@ for filename in os.listdir('results'):
             if lines[i].startswith('BEST OF GEN'):
                 if i < len(lines) - 1:
                     fitness = float(lines[i+1].split('=')[1].split('(')[0].strip())
-                    if fitness > 2.7:
+                    if fitness > 2.8:
                         overhead = float(lines[i].split(',')[0].split('=')[1].strip())
                         acc = float(lines[i].split(',')[1].split('=')[1].strip())
                         x.append(overhead)
