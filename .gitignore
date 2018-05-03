@@ -2,3 +2,4 @@
 data/*
 models/*
 tmp.py
+best_generator_weights*
