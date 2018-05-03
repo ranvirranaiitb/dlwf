@@ -6,6 +6,7 @@ from keras.optimizers import RMSprop
 from dlwf.kerasdlwf import tor_cnn
 from configobj import ConfigObj
 import time
+import sys
 
 INPUT_SIZE = 10 + 1 # add 1 for bias
 HIDDEN_SIZE = 100
