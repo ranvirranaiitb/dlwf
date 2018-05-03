@@ -302,7 +302,7 @@ def run(discriminator):
         # eval best on test data
         results = population[best].predict(test_data, batch_size=SAMPLES_PER_GEN)
         new_data, insertions = insert_data(results, test_data)
-        acc = discriminator.evaluate(new_data, test_labels, batch_size=SAMPLES_PER_GEN)[1]
+        acc = eval(discriminator, new_data, test_labels, batch_size=SAMPLES_PER_GEN)
         overhead = float(insertions) / float(N_TEST_SAMPLES * SEQ_LEN)
         output = 'BEST OF GEN {}: test overhead = {:.4f}, test acc = {:.4f}'.format(gen, overhead, acc)
         print(output)
