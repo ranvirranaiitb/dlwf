@@ -1,6 +1,6 @@
 import numpy as np
 import keras as k
-from dlwf.kerasdlwf.data import load_data, split_dataset, DataGenerator
+from dlwf.kerasdlwf.data import split_dataset, DataGenerator
 from keras.models import model_from_json
 from keras.optimizers import RMSprop
 from dlwf.kerasdlwf import tor_cnn
@@ -9,9 +9,6 @@ import time
 import sys
 import random
 
-INPUT_SIZE = 10 + 1 # add 1 for bias
-HIDDEN_SIZE = 100
-OUTPUT_SIZE = 3
 N_GENS = 10000
 SEQ_LEN = 3000
 POP_SIZE = 100
@@ -22,18 +19,15 @@ MUT_STEP = (HALF_MUTATE_RANGE - MIN_HALF_MUTATE_RANGE) / float(SHRINK_MUT_RANGE_
 DISCRIMINATOR_PATH = 'dlwf/kerasdlwf/models/2904_181830_cnn'
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
-LOAD_DISCRIMINATOR = False
+LOAD_DISCRIMINATOR = True
 INDEX = '0'
 LSTM_UNITS = 10
 
-# class MLP:
-#     def __init__(self):
-#         w0 = np.random.rand(INPUT_SIZE, HIDDEN_SIZE)
-#         w1 = np.random.rand(HIDDEN_SIZE, OUTPUT_SIZE)
-#
-#     def forward(self, x):
-#         hidden_out = 1. / (1. + np.exp(-np.dot(x, w0)))
-#         out = np.dot(hidden_out, w1)
+def load_data(filepath):
+    with np.load(filepath) as f:
+        data = f['data']
+        labels = f['labels']
+    return data, labels
 
 def create_model():
     model = k.models.Sequential()
@@ -117,7 +111,8 @@ def insert_data_randomly(original_data, percent):
 
 def eval_random_insertion(discriminator):
     f = open('random_insertion_results.txt', 'w')
-    test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    # test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    test_data, test_labels = load_data('data/test_onehot.npz')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
     # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
@@ -154,12 +149,13 @@ def train(datapath):
 
     nb_features = 1
 
-    print('Loading data {}... '.format(datapath))
-    data, labels = load_data(datapath,
-                             minlen=minlen,
-                             maxlen=maxlen,
-                             traces=traces,
-                             dnn_type=dnn)
+    print('Loading data... ')
+    # data, labels = load_data(datapath,
+    #                          minlen=minlen,
+    #                          maxlen=maxlen,
+    #                          traces=traces,
+    #                          dnn_type=dnn)
+    data, labels = load_data('data/train_onehot.npz')
 
     nb_instances = data.shape[0]
     nb_cells = data.shape[1]
@@ -260,13 +256,14 @@ def run(discriminator):
     # discriminator.compile(loss="categorical_crossentropy", optimizer='sgd', metrics=['accuracy'])
 
     # load data
-    all_data, all_labels = load_data('data/val.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    # all_data, all_labels = load_data('data/val.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    all_data, all_labels = load_data('data/val_onehot.npz')
     N_SAMPLES = all_data.shape[0]
     base_accuracy = eval(discriminator, all_data, all_labels, 256)
     # base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
     print('BASE VAL ACC: {}'.format(base_accuracy))
 
-    test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
+    test_data, test_labels = load_data('data/test_onehot.npz')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
     # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
