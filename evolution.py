@@ -14,7 +14,7 @@ N_GENS = 10000
 SEQ_LEN = 3000
 POP_SIZE = 100
 HALF_MUTATE_RANGE = 0.1
-DISCRIMINATOR_PATH = '/home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn'
+DISCRIMINATOR_PATH = 'dlwf/kerasdlwf/models/2904_181830_cnn'
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
 LOAD_DISCRIMINATOR = False
@@ -267,5 +267,5 @@ def run(discriminator):
     f.close()
 
 if __name__ == '__main__':
-    discriminator = train('/home/calvin/projects/web-fingerprinting/data/train.npz')
+    discriminator = train('data/train.npz')
     run(discriminator)
