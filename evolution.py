@@ -18,6 +18,7 @@ DISCRIMINATOR_PATH = 'dlwf/kerasdlwf/models/2904_181830_cnn'
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
 LOAD_DISCRIMINATOR = False
+INDEX = '0'
 
 # class MLP:
 #     def __init__(self):
@@ -41,6 +42,16 @@ def mutate(model):
     for weights in weights_list:
         for w in np.nditer(weights, op_flags=['readwrite']):
             w[...] = np.random.uniform(w - HALF_MUTATE_RANGE, w + HALF_MUTATE_RANGE)
+    new_model.set_weights(weights_list)
+    return new_model
+
+
+def mutate_fast(model):
+    new_model = create_model()
+    weights_list = model.get_weights()
+    for weights in weights_list:
+        mut = np.random.uniform(-HALF_MUTATE_RANGE, HALF_MUTATE_RANGE, weights.shape)
+        weights += mut
     new_model.set_weights(weights_list)
     return new_model
 
@@ -172,7 +183,8 @@ def train(datapath):
                                       validation_data=data_params['val_gen'],
                                       validation_steps=learn_params['val_steps'],
                                       epochs=learn_params['epochs'])
-        model.save_weights('best_discriminator_weights.h5')
+        if INDEX == '0':
+            model.save_weights('best_discriminator_weights.h5')
 
     return model
 
@@ -186,7 +198,7 @@ def eval(model, data, labels, batch_size):
 
 def run(discriminator):
     global N_SAMPLES, HALF_MUTATE_RANGE
-    f = open('log.txt', 'w')
+    f = open('log{}.txt'.format(INDEX), 'w')
 
     # load discriminator
     # json_file = open(DISCRIMINATOR_PATH + '.json', 'r')
@@ -248,12 +260,12 @@ def run(discriminator):
         f.write(output + '\n')
 
         # save best
-        population[best].save_weights('best_generator_weights.h5')
+        population[best].save_weights('best_generator_weights{}.h5'.format(INDEX))
 
         # mutate
         new_pop = []
         for _ in range(POP_SIZE):
-            new_pop.append(mutate(population[best]))
+            new_pop.append(mutate_fast(population[best]))
         population = new_pop
 
         # shrink mutation range
@@ -267,5 +279,7 @@ def run(discriminator):
     f.close()
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1:
+        INDEX = sys.argv[1]
     discriminator = train('data/train.npz')
     run(discriminator)
