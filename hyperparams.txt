@@ -1,0 +1,6 @@
+default = 2.8145
+200 pop size = 2.8099, 2.8034
+20 lstm = 2.8326, 2.8119
+0.02 min mut = 2.7877
+0.2 max mut = 2.8151
+200 pop size, 20 lstm = 2.8228

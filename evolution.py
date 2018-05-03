@@ -16,7 +16,6 @@ HALF_MUTATE_RANGE = 0.1
 MIN_HALF_MUTATE_RANGE = 0.01
 SHRINK_MUT_RANGE_OVER_N_GENS = 9
 MUT_STEP = (HALF_MUTATE_RANGE - MIN_HALF_MUTATE_RANGE) / float(SHRINK_MUT_RANGE_OVER_N_GENS)
-DISCRIMINATOR_PATH = 'dlwf/kerasdlwf/models/2904_181830_cnn'
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
 LOAD_DISCRIMINATOR = True
@@ -334,17 +333,23 @@ if __name__ == '__main__':
         INDEX = sys.argv[1]
         print('index: {}'.format(INDEX))
     idx = int(INDEX)
-    if idx == 1 or idx == 2:
-        POP_SIZE = 200
+    if idx == 0:
+        MIN_HALF_MUTATE_RANGE = 0.005
+    elif idx == 1 or idx == 2:
+        LSTM_UNITS = 40
     elif idx == 3 or idx == 4:
-        LSTM_UNITS = 20
+        LSTM_UNITS = 80
     elif idx == 5:
-        MIN_HALF_MUTATE_RANGE = 0.02
+        LSTM_UNITS = 40
+        MIN_HALF_MUTATE_RANGE = 0.005
     elif idx == 6:
-        HALF_MUTATE_RANGE = 0.2
+        LSTM_UNITS = 80
+        MIN_HALF_MUTATE_RANGE = 0.005
     elif idx == 7:
-        POP_SIZE = 200
-        LSTM_UNITS = 20
+        LSTM_UNITS = 160
+    elif idx == 8:
+        LSTM_UNITS = 160
+        MIN_HALF_MUTATE_RANGE = 0.005
     discriminator = train('data/train.npz')
     run(discriminator)
     # eval_random_insertion(discriminator)
