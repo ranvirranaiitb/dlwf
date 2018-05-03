@@ -1,0 +1,5 @@
+apt update
+apt install python3-pip
+pip3 install keras
+pip3 install tensorflow-gpu
+pip3 install configobj

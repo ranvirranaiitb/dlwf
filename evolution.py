@@ -13,7 +13,7 @@ OUTPUT_SIZE = 3
 N_GENS = 10000
 SEQ_LEN = 3000
 POP_SIZE = 100
-HALF_MUTATE_RANGE = 0.01
+HALF_MUTATE_RANGE = 0.1
 DISCRIMINATOR_PATH = '/home/calvin/projects/web-fingerprinting/dlwf/kerasdlwf/models/2904_181830_cnn'
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
@@ -156,12 +156,6 @@ def train(datapath):
 
     model = tor_cnn.build_model(learn_params, nb_classes)
 
-    metrics = ['accuracy']
-
-    optimizer = RMSprop(lr=learn_params['lr'],
-                            decay=learn_params['decay'])
-
-    model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=metrics)
 
     print(model.summary())
 
@@ -169,6 +163,10 @@ def train(datapath):
     if LOAD_DISCRIMINATOR:
         model.load_weights('best_discriminator_weights.h5')
     else:
+        metrics = ['accuracy']
+        optimizer = RMSprop(lr=learn_params['lr'],
+        decay=learn_params['decay'])
+        model.compile(loss="categorical_crossentropy", optimizer=optimizer, metrics=metrics)
         history = model.fit_generator(generator=data_params['train_gen'],
                                       steps_per_epoch=learn_params['train_steps'],
                                       validation_data=data_params['val_gen'],
@@ -179,8 +177,15 @@ def train(datapath):
     return model
 
 
+def eval(model, data, labels, batch_size):
+    results = model.predict(data, batch_size=batch_size)
+    idxs1 = np.argmax(results, axis=1)
+    idxs2 = np.argmax(labels, axis=1)
+    return np.sum(idxs1 == idxs2) / float(labels.shape[0])
+
+
 def run(discriminator):
-    global N_SAMPLES
+    global N_SAMPLES, HALF_MUTATE_RANGE
     f = open('log.txt', 'w')
 
     # load discriminator
@@ -194,12 +199,14 @@ def run(discriminator):
     # load data
     all_data, all_labels = load_data('data/val.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
     N_SAMPLES = all_data.shape[0]
-    base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
+    base_accuracy = eval(discriminator, all_data, all_labels, 256)
+    # base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
     print('BASE VAL ACC: {}'.format(base_accuracy))
 
     test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
     N_TEST_SAMPLES = test_data.shape[0]
-    base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
+    base_accuracy = eval(discriminator, test_data, test_labels, 256)
+    # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
     print('BASE TEST ACC: {}'.format(base_accuracy))
 
 
@@ -221,7 +228,7 @@ def run(discriminator):
         for model in population:
             results = model.predict(data, batch_size=SAMPLES_PER_GEN)
             new_data, insertions = insert_data(results, data)
-            acc = discriminator.evaluate(new_data, labels, batch_size=SAMPLES_PER_GEN)[1]
+            acc = eval(discriminator, new_data, labels, batch_size=SAMPLES_PER_GEN)
             overhead_fitness = 1. - (float(insertions) / float(SAMPLES_PER_GEN * SEQ_LEN))
             acc_fitness = 1. - acc
             total_fitness = OVERHEAD_FITNESS_MULTIPLIER * overhead_fitness + acc_fitness
@@ -248,6 +255,9 @@ def run(discriminator):
         for _ in range(POP_SIZE):
             new_pop.append(mutate(population[best]))
         population = new_pop
+
+        # shrink mutation range
+        HALF_MUTATE_RANGE = max(0.01, HALF_MUTATE_RANGE - 0.01)
 
         end = time.time()
         output = 'GEN {}: best fitness = {:.4f} (took {:.2f} sec)'.format(gen, fitness[best], end-start)
