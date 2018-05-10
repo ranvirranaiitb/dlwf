@@ -18,10 +18,11 @@ SHRINK_MUT_RANGE_OVER_N_GENS = 9
 MUT_STEP = (HALF_MUTATE_RANGE - MIN_HALF_MUTATE_RANGE) / float(SHRINK_MUT_RANGE_OVER_N_GENS)
 OVERHEAD_FITNESS_MULTIPLIER = 2.
 SAMPLES_PER_GEN = 500
-LOAD_DISCRIMINATOR = True
+LOAD_DISCRIMINATOR = False
 INDEX = '0'
 LSTM_UNITS = 10
-LSTM_DISCRIM = True
+LSTM_DISCRIM = False
+NOISY_DISCRIM = True
 if LSTM_DISCRIM:
     SEQ_LEN = 150
 else:
@@ -95,6 +96,8 @@ def insert_data_randomly(original_data, percent):
     new_data = np.empty(original_data.shape)
     insertions = 0
     for i in range(original_data.shape[0]):
+        if i % 1000 == 0:
+            print(i)
         x = 0
         for j in range(original_data.shape[1]):
             if x == original_data.shape[1]:
@@ -123,7 +126,10 @@ def eval_random_insertion(discriminator):
         test_data, test_labels = load_data('data/test_onehot_lstm.npz')
     else:
         test_data, test_labels = load_data('data/test_onehot.npz')
-        f = open('random_insertion_results.txt', 'w')
+        if NOISY_DISCRIM:
+            f = open('random_insertion_results_noisy.txt', 'w')
+        else:
+            f = open('random_insertion_results.txt', 'w')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
     # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
@@ -167,6 +173,8 @@ def train(datapath):
     print('Loading data... ')
     if LSTM_DISCRIM:
         data, labels = load_data('data/train_onehot_lstm.npz')
+    elif NOISY_DISCRIM:
+        data, labels = load_data('data/train_onehot_noisy.npz')
     else:
         data, labels = load_data('data/train_onehot.npz')
 
@@ -237,6 +245,8 @@ def train(datapath):
     if LOAD_DISCRIMINATOR:
         if LSTM_DISCRIM:
             model.load_weights('lstm_discrim_weights.h5')
+        elif NOISY_DISCRIM:
+            model.load_weights('noisy_discrim_weights.h5')
         else:
             model.load_weights('best_discriminator_weights.h5')
     else:
@@ -252,6 +262,8 @@ def train(datapath):
         if INDEX == '0':
             if LSTM_DISCRIM:
                 model.save_weights('lstm_discrim_weights.h5')
+            elif NOISY_DISCRIM:
+                model.save_weights('noisy_discrim_weights.h5')
             else:
                 model.save_weights('best_discriminator_weights.h5')
 
@@ -346,6 +358,8 @@ def run(discriminator):
         # save best
         if LSTM_DISCRIM:
             population[best].save_weights('best_generator_weights{}_lstm.h5'.format(INDEX))
+        elif NOISY_DISCRIM:
+            population[best].save_weights('best_generator_weights{}_noisy.h5'.format(INDEX))
         else:
             population[best].save_weights('best_generator_weights{}.h5'.format(INDEX))
 
@@ -389,7 +403,7 @@ if __name__ == '__main__':
     #     LSTM_UNITS = 160
     #     MIN_HALF_MUTATE_RANGE = 0.005
     discriminator = train('data/train.npz')
-    # run(discriminator)
     eval_random_insertion(discriminator)
-    # generator = load_generator('best_generator_weights0.h5')
+    run(discriminator)
+    # generator = load_generator('best_generator_weights0_lstm.h5')
     # evaluate(generator, discriminator)
