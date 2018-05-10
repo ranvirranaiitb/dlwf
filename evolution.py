@@ -3,14 +3,15 @@ import keras as k
 from dlwf.kerasdlwf.data import split_dataset, DataGenerator
 from keras.models import model_from_json
 from keras.optimizers import RMSprop
-from dlwf.kerasdlwf import tor_cnn
+from dlwf.kerasdlwf import tor_cnn, tor_lstm
 from configobj import ConfigObj
 import time
 import sys
 import random
 
-N_GENS = 10000
-SEQ_LEN = 3000
+N_GENS = 100
+# SEQ_LEN = 3000
+SEQ_LEN = 150
 POP_SIZE = 100
 HALF_MUTATE_RANGE = 0.1
 MIN_HALF_MUTATE_RANGE = 0.01
@@ -34,6 +35,10 @@ def create_model():
     model.add(k.layers.Dense(3))
     return model
 
+def load_generator(path):
+    model = create_model()
+    model.load_weights(path)
+    return model
 
 def mutate(model):
     new_model = create_model()
@@ -149,12 +154,8 @@ def train(datapath):
     nb_features = 1
 
     print('Loading data... ')
-    # data, labels = load_data(datapath,
-    #                          minlen=minlen,
-    #                          maxlen=maxlen,
-    #                          traces=traces,
-    #                          dnn_type=dnn)
-    data, labels = load_data('data/train_onehot.npz')
+    # data, labels = load_data('data/train_onehot.npz')
+    data, labels = load_data('data/train_onehot_lstm.npz')
 
     nb_instances = data.shape[0]
     nb_cells = data.shape[1]
@@ -211,14 +212,15 @@ def train(datapath):
 
     print('Building model...')
 
-    model = tor_cnn.build_model(learn_params, nb_classes)
+    model = tor_lstm.build_model(learn_params, nb_classes)
+    # model = tor_cnn.build_model(learn_params, nb_classes)
 
 
     print(model.summary())
 
     # Train model on dataset
     if LOAD_DISCRIMINATOR:
-        model.load_weights('best_discriminator_weights.h5')
+        model.load_weights('lstm_discrim_weights.h5')
     else:
         metrics = ['accuracy']
         optimizer = RMSprop(lr=learn_params['lr'],
@@ -230,9 +232,23 @@ def train(datapath):
                                       validation_steps=learn_params['val_steps'],
                                       epochs=learn_params['epochs'])
         if INDEX == '0':
-            model.save_weights('best_discriminator_weights.h5')
+            model.save_weights('lstm_discrim_weights.h5')
 
     return model
+
+
+def evaluate(generator, discriminator):
+    test_data, test_labels = load_data('data/test_onehot_lstm.npz')
+    N_TEST_SAMPLES = test_data.shape[0]
+    base_accuracy = eval(discriminator, test_data, test_labels, 256)
+    # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
+    print('BASE TEST ACC: {}'.format(base_accuracy))
+
+    results = generator.predict(test_data, batch_size=SAMPLES_PER_GEN)
+    new_data, insertions = insert_data(results, test_data)
+    acc = eval(discriminator, new_data, test_labels, batch_size=SAMPLES_PER_GEN)
+    overhead = float(insertions) / float(N_TEST_SAMPLES * SEQ_LEN)
+    print('generator test overhead = {:.4f}, test acc = {:.4f}'.format(overhead, acc))
 
 
 def eval(model, data, labels, batch_size):
@@ -246,23 +262,17 @@ def run(discriminator):
     global N_SAMPLES, HALF_MUTATE_RANGE
     f = open('log{}.txt'.format(INDEX), 'w')
 
-    # load discriminator
-    # json_file = open(DISCRIMINATOR_PATH + '.json', 'r')
-    # loaded_model_json = json_file.read()
-    # json_file.close()
-    # discriminator = k.models.model_from_json(loaded_model_json)
-    # discriminator.load_weights(DISCRIMINATOR_PATH + ".h5")
-    # discriminator.compile(loss="categorical_crossentropy", optimizer='sgd', metrics=['accuracy'])
-
     # load data
     # all_data, all_labels = load_data('data/val.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
-    all_data, all_labels = load_data('data/val_onehot.npz')
+    # all_data, all_labels = load_data('data/val_onehot.npz')
+    all_data, all_labels = load_data('data/val_onehot_lstm.npz')
     N_SAMPLES = all_data.shape[0]
     base_accuracy = eval(discriminator, all_data, all_labels, 256)
     # base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
     print('BASE VAL ACC: {}'.format(base_accuracy))
 
-    test_data, test_labels = load_data('data/test_onehot.npz')
+    # test_data, test_labels = load_data('data/test_onehot.npz')
+    test_data, test_labels = load_data('data/test_onehot_lstm.npz')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
     # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
@@ -309,7 +319,7 @@ def run(discriminator):
         f.write(output + '\n')
 
         # save best
-        population[best].save_weights('best_generator_weights{}.h5'.format(INDEX))
+        population[best].save_weights('best_generator_weights{}_lstm.h5'.format(INDEX))
 
         # mutate
         # new_pop = []
@@ -333,23 +343,25 @@ if __name__ == '__main__':
         INDEX = sys.argv[1]
         print('index: {}'.format(INDEX))
     idx = int(INDEX)
-    if idx == 0:
-        MIN_HALF_MUTATE_RANGE = 0.005
-    elif idx == 1 or idx == 2:
-        LSTM_UNITS = 40
-    elif idx == 3 or idx == 4:
-        LSTM_UNITS = 80
-    elif idx == 5:
-        LSTM_UNITS = 40
-        MIN_HALF_MUTATE_RANGE = 0.005
-    elif idx == 6:
-        LSTM_UNITS = 80
-        MIN_HALF_MUTATE_RANGE = 0.005
-    elif idx == 7:
-        LSTM_UNITS = 160
-    elif idx == 8:
-        LSTM_UNITS = 160
-        MIN_HALF_MUTATE_RANGE = 0.005
+    # if idx == 0:
+    #     MIN_HALF_MUTATE_RANGE = 0.005
+    # elif idx == 1 or idx == 2:
+    #     LSTM_UNITS = 40
+    # elif idx == 3 or idx == 4:
+    #     LSTM_UNITS = 80
+    # elif idx == 5:
+    #     LSTM_UNITS = 40
+    #     MIN_HALF_MUTATE_RANGE = 0.005
+    # elif idx == 6:
+    #     LSTM_UNITS = 80
+    #     MIN_HALF_MUTATE_RANGE = 0.005
+    # elif idx == 7:
+    #     LSTM_UNITS = 160
+    # elif idx == 8:
+    #     LSTM_UNITS = 160
+    #     MIN_HALF_MUTATE_RANGE = 0.005
     discriminator = train('data/train.npz')
-    run(discriminator)
+    # run(discriminator)
     # eval_random_insertion(discriminator)
+    generator = load_generator('best_generator_weights0.h5')
+    evaluate(generator, discriminator)

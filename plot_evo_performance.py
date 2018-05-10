@@ -10,7 +10,7 @@ for filename in os.listdir('results'):
             if lines[i].startswith('BEST OF GEN'):
                 if i < len(lines) - 1:
                     fitness = float(lines[i+1].split('=')[1].split('(')[0].strip())
-                    if fitness > 2.8:
+                    if fitness > 2.81:
                         overhead = float(lines[i].split(',')[0].split('=')[1].strip())
                         acc = float(lines[i].split(',')[1].split('=')[1].strip())
                         x.append(overhead)
@@ -26,4 +26,7 @@ with open('random_insertion_results.txt', 'r') as f:
         base_y.append(acc)
 
 plt.plot(x, y, 'bs', base_x, base_y, 'r--')
+plt.xlabel('Overhead')
+plt.ylabel('Accuracy')
+plt.title('Performance on Test Data')
 plt.savefig('evo_performance.png')
