@@ -21,7 +21,7 @@ SAMPLES_PER_GEN = 500
 LOAD_DISCRIMINATOR = True
 INDEX = '0'
 LSTM_UNITS = 10
-LSTM_DISCRIM = False
+LSTM_DISCRIM = True
 if LSTM_DISCRIM:
     SEQ_LEN = 150
 else:
@@ -120,10 +120,10 @@ def insert_data_randomly(original_data, percent):
 def eval_random_insertion(discriminator):
     if LSTM_DISCRIM:
         f = open('random_insertion_results_lstm.txt', 'w')
+        test_data, test_labels = load_data('data/test_onehot_lstm.npz')
     else:
+        test_data, test_labels = load_data('data/test_onehot.npz')
         f = open('random_insertion_results.txt', 'w')
-    # test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
-    test_data, test_labels = load_data('data/test_onehot.npz')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
     # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
@@ -132,7 +132,7 @@ def eval_random_insertion(discriminator):
     for p in range(1, 100):
         percent = float(p) / float(100)
         new_data, insertions = insert_data_randomly(test_data, percent)
-        acc = discriminator.evaluate(new_data, test_labels, batch_size=SAMPLES_PER_GEN)[1]
+        acc = eval(discriminator, new_data, test_labels, batch_size=SAMPLES_PER_GEN)
         overhead = float(insertions) / float(N_TEST_SAMPLES * SEQ_LEN)
         output = 'RANDOM INSERTION CHANCE {}: test overhead = {:.4f}, test acc = {:.4f}'.format(percent, overhead, acc)
         print(output)
@@ -390,6 +390,6 @@ if __name__ == '__main__':
     #     MIN_HALF_MUTATE_RANGE = 0.005
     discriminator = train('data/train.npz')
     # run(discriminator)
-    # eval_random_insertion(discriminator)
-    generator = load_generator('best_generator_weights0.h5')
-    evaluate(generator, discriminator)
+    eval_random_insertion(discriminator)
+    # generator = load_generator('best_generator_weights0.h5')
+    # evaluate(generator, discriminator)
