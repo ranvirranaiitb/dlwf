@@ -11,7 +11,6 @@ import random
 
 N_GENS = 100
 # SEQ_LEN = 3000
-SEQ_LEN = 150
 POP_SIZE = 100
 HALF_MUTATE_RANGE = 0.1
 MIN_HALF_MUTATE_RANGE = 0.01
@@ -22,6 +21,11 @@ SAMPLES_PER_GEN = 500
 LOAD_DISCRIMINATOR = True
 INDEX = '0'
 LSTM_UNITS = 10
+LSTM_DISCRIM = False
+if LSTM_DISCRIM:
+    SEQ_LEN = 150
+else:
+    SEQ_LEN = 3000
 
 def load_data(filepath):
     with np.load(filepath) as f:
@@ -114,7 +118,10 @@ def insert_data_randomly(original_data, percent):
 
 
 def eval_random_insertion(discriminator):
-    f = open('random_insertion_results.txt', 'w')
+    if LSTM_DISCRIM:
+        f = open('random_insertion_results_lstm.txt', 'w')
+    else:
+        f = open('random_insertion_results.txt', 'w')
     # test_data, test_labels = load_data('data/test.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
     test_data, test_labels = load_data('data/test_onehot.npz')
     N_TEST_SAMPLES = test_data.shape[0]
@@ -137,7 +144,11 @@ def train(datapath):
     torconf = "dlwf/kerasdlwf/tor.conf"
     config = ConfigObj(torconf)
     traces = config.as_int('traces')
-    dnn = config['dnn']
+    # dnn = config['dnn']
+    if LSTM_DISCRIM:
+        dnn = 'lstm'
+    else:
+        dnn = 'cnn'
     seed = config.as_int('seed')
     minlen = config.as_int('minlen')
     nb_epochs = config[dnn].as_int('nb_epochs')
@@ -154,8 +165,10 @@ def train(datapath):
     nb_features = 1
 
     print('Loading data... ')
-    # data, labels = load_data('data/train_onehot.npz')
-    data, labels = load_data('data/train_onehot_lstm.npz')
+    if LSTM_DISCRIM:
+        data, labels = load_data('data/train_onehot_lstm.npz')
+    else:
+        data, labels = load_data('data/train_onehot.npz')
 
     nb_instances = data.shape[0]
     nb_cells = data.shape[1]
@@ -212,15 +225,20 @@ def train(datapath):
 
     print('Building model...')
 
-    model = tor_lstm.build_model(learn_params, nb_classes)
-    # model = tor_cnn.build_model(learn_params, nb_classes)
+    if LSTM_DISCRIM:
+        model = tor_lstm.build_model(learn_params, nb_classes)
+    else:
+        model = tor_cnn.build_model(learn_params, nb_classes)
 
 
     print(model.summary())
 
     # Train model on dataset
     if LOAD_DISCRIMINATOR:
-        model.load_weights('lstm_discrim_weights.h5')
+        if LSTM_DISCRIM:
+            model.load_weights('lstm_discrim_weights.h5')
+        else:
+            model.load_weights('best_discriminator_weights.h5')
     else:
         metrics = ['accuracy']
         optimizer = RMSprop(lr=learn_params['lr'],
@@ -232,13 +250,19 @@ def train(datapath):
                                       validation_steps=learn_params['val_steps'],
                                       epochs=learn_params['epochs'])
         if INDEX == '0':
-            model.save_weights('lstm_discrim_weights.h5')
+            if LSTM_DISCRIM:
+                model.save_weights('lstm_discrim_weights.h5')
+            else:
+                model.save_weights('best_discriminator_weights.h5')
 
     return model
 
 
 def evaluate(generator, discriminator):
-    test_data, test_labels = load_data('data/test_onehot_lstm.npz')
+    if LSTM_DISCRIM:
+        test_data, test_labels = load_data('data/test_onehot_lstm.npz')
+    else:
+        test_data, test_labels = load_data('data/test_onehot.npz')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
     # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
@@ -263,19 +287,20 @@ def run(discriminator):
     f = open('log{}.txt'.format(INDEX), 'w')
 
     # load data
-    # all_data, all_labels = load_data('data/val.npz', maxlen=SEQ_LEN, traces=1500, dnn_type='cnn')
-    # all_data, all_labels = load_data('data/val_onehot.npz')
-    all_data, all_labels = load_data('data/val_onehot_lstm.npz')
+    if LSTM_DISCRIM:
+        all_data, all_labels = load_data('data/val_onehot_lstm.npz')
+    else:
+        all_data, all_labels = load_data('data/val_onehot.npz')
     N_SAMPLES = all_data.shape[0]
     base_accuracy = eval(discriminator, all_data, all_labels, 256)
-    # base_accuracy = discriminator.evaluate(all_data, all_labels, batch_size=256)[1]
     print('BASE VAL ACC: {}'.format(base_accuracy))
 
-    # test_data, test_labels = load_data('data/test_onehot.npz')
-    test_data, test_labels = load_data('data/test_onehot_lstm.npz')
+    if LSTM_DISCRIM:
+        test_data, test_labels = load_data('data/test_onehot_lstm.npz')
+    else:
+        test_data, test_labels = load_data('data/test_onehot.npz')
     N_TEST_SAMPLES = test_data.shape[0]
     base_accuracy = eval(discriminator, test_data, test_labels, 256)
-    # base_accuracy = discriminator.evaluate(test_data, test_labels, batch_size=256)[1]
     print('BASE TEST ACC: {}'.format(base_accuracy))
 
 
@@ -319,7 +344,10 @@ def run(discriminator):
         f.write(output + '\n')
 
         # save best
-        population[best].save_weights('best_generator_weights{}_lstm.h5'.format(INDEX))
+        if LSTM_DISCRIM:
+            population[best].save_weights('best_generator_weights{}_lstm.h5'.format(INDEX))
+        else:
+            population[best].save_weights('best_generator_weights{}.h5'.format(INDEX))
 
         # mutate
         # new_pop = []
